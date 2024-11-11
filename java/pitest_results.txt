@@ -1,5 +1,5 @@
 Resultados do PITEST
-
+----------------------------------------
 Arquivo: Main.java
 Classe Mutada: com.example.Main
 Método Mutado: add
