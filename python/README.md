@@ -1,5 +1,5 @@
 # Install mutmut
-We used mutmut to generate mutation tests, so it needs to be installed.
+We used *mutmut* to generate mutation tests, so it needs to be installed.
 ```bash
 pip install mutmut
 mutmut run
