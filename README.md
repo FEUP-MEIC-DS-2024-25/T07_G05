@@ -29,6 +29,66 @@ rm mutation_report.txt -rf
 
 ---
 
+### JavaScript directory
+
+We're using *Jest* to write unit tests so you need to install it by running:
+```bash
+npm init -y
+npm i --save-dev jest
+```
+
+You also have to add the testing package to the ```packages.json``` file:
+```bash
+"test": "jest"
+```
+Or to generate an HTML file:
+```bash
+"test": "jest --coverage"
+```
+
+Then to run unit tests you can use:
+```bash
+npm test
+```
+
+Because we use *Stryker* to generate mutations tests, it's necessary to have the *Stryker* plugin installed before running the code. If you don't have it installed yet, run this commands:
+```bash
+npm install --save-dev @stryker-mutator/core @stryker-mutator/jest-runner
+npx stryker init
+```
+
+Then, we need to add configurations to use *Stryker*. In the ```stryker.config.json``` file add ```"json"``` to the reporters list.
+~~~
+"reporters": [
+    "html",
+    "clear-text",
+    "progress",
+    "json"
+]
+~~~
+This specifies the file types in which you want to see the results.
+
+In the same file add ```"mutate"``` field, according to the directory structure:
+~~~
+"mutate": [
+    "*.js",
+    "!*.test.js"
+]
+~~~
+This indicates the name structure of the code and respective tests files, so that *Stryker* knows how to get to them.
+
+Lastly, you can run *Stryker* by running:
+```bash
+npx stryker run
+```
+
+Since we have the possible mutations in the report, we need to extract them. This is up to the command:
+```bash
+node generate_mutants.js
+```
+
+---
+
 ### Mockups in Figma
 We used the Figma for doing our mockups. The results are in the next video:
 

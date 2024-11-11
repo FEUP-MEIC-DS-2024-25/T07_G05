@@ -1,6 +1,27 @@
-# Install
+# Install Jest
 ~~~
-npm install  --sav-dev@stryker-mutator/core
+npm init -y
+npm i --save-dev jest
+~~~
+
+# Add testing package
+In the ```packages.json``` file:
+~~~
+"test": "jest"
+~~~
+Or to generate an HTML file:
+~~~
+"test": "jest --coverage"
+~~~
+
+# Run unit tests
+~~~
+npm test
+~~~
+
+# Install Stryker
+~~~
+npm install --save-dev @stryker-mutator/core @stryker-mutator/jest-runner
 npx stryker init
 ~~~
 
@@ -23,15 +44,12 @@ In the same file add ```"mutate"``` field, according to the directory structure:
 ]
 ~~~
 
-# Add ```"test"``` package
-In the ```package.json file``` add to the list:
+# Run Stryker
 ~~~
-"test": "jest"
+npx stryker run
 ~~~
 
-# Run
+# Generate mutants file
 ~~~
-npm init -y
-npm i --save-dev jest
-npm test
+node generate_mutants.js
 ~~~
