@@ -1,5 +1,5 @@
 # T07_G05
-AI assistant for mutation tests selection
+Our work is an AI assistant for mutation tests selection. The user give us the code and the test code, and we generate mutation tests from the original tests. If the user provides us some context about what is supposed to do the program, we will select, by an IA, the tests that match the context.
 
 ---
 
