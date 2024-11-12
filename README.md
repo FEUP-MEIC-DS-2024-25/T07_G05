@@ -89,6 +89,20 @@ node generate_mutants.js
 
 ---
 
+### Gemini directory
+Inside this directory, you have the files that we used to make the selection of the mutation tests. To do that, we used *Gemini*.
+
+To run the program that select the tests, first you need to have installed the *SDK* for the *API Gemini*. If you don't have it installed, run the next command:
+```bash
+pip install -q -U google-generativeai
+```
+
+After that, you need to insert the context about your program in the *context.txt* file and the mutation tests in the *tests.txt* file, that are inside the *files* directory.
+
+Now, you only need to run the *select_tests.py* file and a query will be sent to the Gemini to select the most important tests based on the context provided.
+
+---
+
 ### Mockups in Figma
 We used the Figma for doing our mockups. The results are in the next video:
 
