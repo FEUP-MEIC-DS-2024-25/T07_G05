@@ -1,0 +1,1 @@
+All the result that I gave to the program need to be bigger than 5.
