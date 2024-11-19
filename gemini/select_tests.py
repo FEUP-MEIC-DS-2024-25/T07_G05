@@ -7,7 +7,7 @@ with open('./files/tests.txt', 'r') as file:
     tests = file.read()
 
 #Create the query 
-query = "This is the context about what I expect my program to do:\n" + context + "\nThese are my tests:\n" + tests + "\n Can you select the most important tests based on the context that I provided you?" 
+query = "This is the context about what I expect my program to do:\n" + context + "\nThese are my tests:\n" + tests + "\n Can you select the most important tests based on the context that I provided you? Select a minimum of 4 tests. Give me only the code with the tests that you chose." 
 
 
 #Define the key, the model and make the query to the gemini
