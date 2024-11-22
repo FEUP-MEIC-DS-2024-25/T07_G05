@@ -1,6 +1,6 @@
 .twister_ai {
     background-color: #6066A9;
-    width: 55rem;
+    width: 70%;
 }
 
 .twister_ai header {
@@ -52,8 +52,9 @@
     flex-direction: column;
 }
 
-#language {
-    background-color: #D3D3D3;
+.language {
+    background-color: white;
+    color: black;
     border: none;
     border-radius: 4px;
     padding: 5px 10px;
@@ -86,4 +87,53 @@
     border-radius: 10px;
     width: 35rem;
     height: 7rem;
+}
+
+.twister_ai main .upload_section input {
+    display: none;
+}
+
+.twister_ai main .upload_section {
+    display: flex;
+    justify-content: space-between; /* Espaça os elementos igualmente */
+    align-items: center;
+    width: 100%; /* Certifique-se de que a seção ocupe toda a largura necessária */
+    padding: 10px 20px; /* Espaçamento interno opcional */
+}
+
+.twister_ai main .upload_section label {
+    padding-left: 110px;
+    padding-right: 110px;
+}
+
+
+
+.twister_ai main .context_section {
+    display: flex;
+    justify-content: space-between; /* Espaça os elementos igualmente */
+    align-items: center;
+    flex-direction: column;
+    width: 100%; /* Certifique-se de que a seção ocupe toda a largura necessária */
+    padding: 10px 20px; /* Espaçamento interno opcional */
+}
+
+.twister_ai main .context_section * {
+    width: 50rem;
+}
+
+.twister_ai main .action_section {
+    display: flex;
+    justify-content: space-between; /* Espaça os elementos igualmente */
+    align-items: center;
+    flex-direction: column;
+    width: 100%; /* Certifique-se de que a seção ocupe toda a largura necessária */
+    padding: 10px 20px; /* Espaçamento interno opcional */
+}
+
+.twister_ai main .action_section button {
+    width: 50rem;
+}
+
+.twister_ai main .action_section button:first-of-type {
+    margin-bottom: 1rem;
 }

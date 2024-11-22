@@ -19,7 +19,7 @@ export default function AssistantInteraction() {
                         <a><Image src={user} alt="User" width={"70"}/></a>
                         <nav>
                             <label>Select the language:</label>
-                            <select id="language">
+                            <select className={styles.language}>
                                 <option value="java">Java</option>
                                 <option value="javascript">JavaScript</option>
                                 <option value="python">Python</option>
@@ -29,19 +29,19 @@ export default function AssistantInteraction() {
                     
                 </header>
                 <main>
-                    <section class="upload_section">
+                    <section className={styles.upload_section}>
                         <label class="upload" for="code-file">Upload code file<i class="fa-solid fa-paperclip"></i></label>{/* código para trocar icon */}
-                        <input class="upload_btn" type="file"  style={{ display: 'none' }}/>
+                        <input className="upload_btn" type="file"  style={{ display: 'none' }}/>
                         <label class="upload" for="tests-file">Upload tests file<i class="fa-solid fa-paperclip"></i></label>{/* código para trocar icon */}
-                        <input class="upload_btn" type="file"  style={{ display: 'none' }}/>
+                        <input className="upload_btn" type="file"  style={{ display: 'none' }}/>
                     </section>
 
-                    <section class="context-section">
+                    <section className={styles.context_section} >
                         <label for="context">Give me some context about your code:</label>
                         <textarea id="context" placeholder="Insert here the context."></textarea>
                     </section>
 
-                    <section class="action-section">
+                    <section className={styles.action_section}>
                         <button>Generate mutant tests</button>
                         <button>Download mutant tests</button> {/* acrescentar icon */}
                     </section>
