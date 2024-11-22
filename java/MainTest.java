@@ -6,9 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class MainTest {
 
     @Test
-    public void testAdd() {
+    public void testContas() {
         Main main = new Main();
-        int result = main.add(2, 3);
-        assertEquals(5, result);
+        assertEquals(4, main.contas(2, 3));
     }
 }
