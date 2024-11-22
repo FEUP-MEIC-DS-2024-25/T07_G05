@@ -1,0 +1,89 @@
+.twister_ai {
+    background-color: #6066A9;
+    width: 55rem;
+}
+
+.twister_ai header {
+    background-color: #242642;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.twister_ai header h1 {
+    font-size: xx-large;
+    margin: 0;
+}
+
+.twister_ai header .header_div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.twister_ai header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #2B2D42; /* Cor de fundo */
+    color: white; /* Cor do texto */
+}
+
+.twister_ai header div {
+    display: flex;
+    align-items: center;
+}
+
+.twister_ai header div a {
+    display: flex;
+    align-items: center;
+}
+
+.twister_ai header div h1 {
+    margin-left: 10px;
+    font-size: 24px;
+    color: #FFFFFF;
+}
+
+.twister_ai header div:last-child nav {
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+#language {
+    background-color: #D3D3D3;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-size: 14px;
+}
+
+
+.twister_ai main {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px; /* Espaço entre as seções */
+}
+
+.twister_ai main label {
+    background-color: #242642;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.twister_ai main button {
+    background-color: #242642;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.twister_ai main textarea {
+    background-color: white;
+    border-radius: 10px;
+    width: 35rem;
+    height: 7rem;
+}
