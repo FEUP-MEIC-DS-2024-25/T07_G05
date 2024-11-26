@@ -30,10 +30,14 @@ export default function AssistantInteraction() {
                 </header>
                 <main>
                     <section className={styles.upload_section}>
-                        <label class="upload" for="code-file">Upload code file<i class="fa-solid fa-paperclip"></i></label>{/* código para trocar icon */}
-                        <input className="upload_btn" type="file"  style={{ display: 'none' }}/>
-                        <label class="upload" for="tests-file">Upload tests file<i class="fa-solid fa-paperclip"></i></label>{/* código para trocar icon */}
-                        <input className="upload_btn" type="file"  style={{ display: 'none' }}/>
+                        <div>
+                            <label class="upload" for="code-file">Upload code file<i class="fa-solid fa-paperclip"></i></label>{/* código para trocar icon */}
+                            <input className="upload_btn" type="file"/>
+                        </div>
+                        <div>
+                            <label class="upload" for="tests-file">Upload tests file<i class="fa-solid fa-paperclip"></i></label>{/* código para trocar icon */}
+                            <input className="upload_btn" type="file"/>
+                        </div>
                     </section>
 
                     <section className={styles.context_section} >

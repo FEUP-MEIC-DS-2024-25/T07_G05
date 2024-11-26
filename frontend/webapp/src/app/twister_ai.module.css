@@ -1,6 +1,6 @@
 .twister_ai {
     background-color: #6066A9;
-    width: 70%;
+    width: 100%;
 }
 
 .twister_ai header {
@@ -12,13 +12,14 @@
 
 .twister_ai header h1 {
     font-size: xx-large;
-    margin: 0;
+    margin-left: 10px;
+    font-size: 24px;
+    color: #FFFFFF;
 }
 
 .twister_ai header .header_div {
     display: flex;
     align-items: center;
-    gap: 10px;
 }
 
 .twister_ai header {
@@ -26,8 +27,8 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
-    background-color: #2B2D42; /* Cor de fundo */
-    color: white; /* Cor do texto */
+    background-color: #2B2D42;
+    color: white;
 }
 
 .twister_ai header div {
@@ -38,12 +39,6 @@
 .twister_ai header div a {
     display: flex;
     align-items: center;
-}
-
-.twister_ai header div h1 {
-    margin-left: 10px;
-    font-size: 24px;
-    color: #FFFFFF;
 }
 
 .twister_ai header div:last-child nav {
@@ -61,79 +56,80 @@
     font-size: 14px;
 }
 
-
 .twister_ai main {
-    padding: 20px;
+    margin: 1.5em;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px; /* Espaço entre as seções */
+    gap: 1em;
 }
 
-.twister_ai main label {
+.twister_ai main section{
+    margin-bottom: 1em;
+}
+
+.twister_ai main .upload_section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.twister_ai  main .upload_section div {
     background-color: #242642;
     padding: 10px;
     border-radius: 10px;
+    width: 47%;
+    text-align: center;
 }
 
-.twister_ai main button {
+.twister_ai  main .upload_section i {
+    margin-left: 1em;
+}
+
+.twister_ai main .context_section {
     background-color: #242642;
-    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    padding: 10px 10px;
     border-radius: 10px;
+}
+
+.twister_ai main .context_section label {
+    padding-bottom: 10px;
 }
 
 .twister_ai main textarea {
     background-color: white;
     border-radius: 10px;
-    width: 35rem;
+    width: 100%;
     height: 7rem;
-}
-
-.twister_ai main .upload_section input {
-    display: none;
-}
-
-.twister_ai main .upload_section {
-    display: flex;
-    justify-content: space-between; /* Espaça os elementos igualmente */
-    align-items: center;
-    width: 100%; /* Certifique-se de que a seção ocupe toda a largura necessária */
-    padding: 10px 20px; /* Espaçamento interno opcional */
-}
-
-.twister_ai main .upload_section label {
-    padding-left: 110px;
-    padding-right: 110px;
-}
-
-
-
-.twister_ai main .context_section {
-    display: flex;
-    justify-content: space-between; /* Espaça os elementos igualmente */
-    align-items: center;
-    flex-direction: column;
-    width: 100%; /* Certifique-se de que a seção ocupe toda a largura necessária */
-    padding: 10px 20px; /* Espaçamento interno opcional */
-}
-
-.twister_ai main .context_section * {
-    width: 50rem;
+    padding: 10px;
 }
 
 .twister_ai main .action_section {
     display: flex;
-    justify-content: space-between; /* Espaça os elementos igualmente */
+    justify-content: space-between;
     align-items: center;
     flex-direction: column;
-    width: 100%; /* Certifique-se de que a seção ocupe toda a largura necessária */
-    padding: 10px 20px; /* Espaçamento interno opcional */
+    width: 100%;
 }
 
 .twister_ai main .action_section button {
-    width: 50rem;
+    background-color: #242642;
+    padding: 10px;
+    border-radius: 10px;
+    width: 100%;
 }
 
 .twister_ai main .action_section button:first-of-type {
     margin-bottom: 1rem;
 }
+
+/* .twister_ai main .upload_section input {
+    display: none;
+}
+ */
