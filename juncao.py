@@ -1,7 +1,8 @@
 import threading
 import subprocess
+import sys
 
-def run_shell_script():
+def run_shell_script_python():
     # Substitua pelo caminho do seu script shell
     script_path = "./script.sh"  
     try:
@@ -10,16 +11,12 @@ def run_shell_script():
         print(f"Erro ao executar o script: {e}")
 
 #............................................................
+#Recebe como arguemntos, linguagem -> code file -> test code file -> context
 
-# Criar a thread
-thread = threading.Thread(target=run_shell_script)
-
-# Iniciar a thread
-thread.start()
-
-# Continuar a executar o programa principal
-for i in range(5):
-    print(f"Tarefa principal: {i}")
-
-# Esperar a thread terminar (opcional)
-thread.join()
+if (sys.argv[1]=="python"):
+    # Criar a thread
+    thread1 = threading.Thread(target=run_shell_script_python)
+    # Iniciar a thread
+    thread1.start()
+    # Esperar a thread terminar (opcional)
+    thread1.join()
