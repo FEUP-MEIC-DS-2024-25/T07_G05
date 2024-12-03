@@ -1,9 +1,22 @@
+#!/bin/bash
 
-# Comando que escreve para mutation_report.txt os resultados obtidos de criar os mutation tests
-mut.py --target my_code --unit-test test_my_code --show-mutants > mutation_report.txt
+# Verificar se os argumentos foram passados
+if [ "$#" -ne 2 ]; then
+    echo "Uso: $0 <my_code> <test_my_code>"
+    exit 1
+fi
 
-#Filtar as linhas das mutacoes
+# Argumentos
+MY_CODE="$1"
+TEST_MY_CODE="$2"
+
+# Gerar o relatório de mutações
+mut.py --target "$MY_CODE" --unit-test "$TEST_MY_CODE" --show-mutants > mutation_report.txt
+
+# Filtrar as linhas das mutações
 python3 ./python/filtra_linhas.py mutation_report.txt mutation_report_filtered.txt
 
-#Eliminar ficheiro auxiliar
-rm mutation_report.txt -rf
+# Eliminar o ficheiro auxiliar
+rm -rf mutation_report.txt
+
+echo "Relatório de mutações filtrado salvo em mutation_report_filtered.txt"
