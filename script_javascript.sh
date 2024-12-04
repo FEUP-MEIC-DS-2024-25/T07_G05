@@ -8,6 +8,15 @@ fi
 MY_CODE="$1"
 TEST_MY_CODE="$2"
 
-cd javascript
+#Mover os ficheiros para a pasta abaixo
+mv "$MY_CODE" "javascript"
+mv "$TEST_MY_CODE" "javascript"
 
-node generate_mutants.js sum.js
+#Fazer o processo normal para obter os teste
+cd javascript
+node generate_mutants.js "$MY_CODE"
+
+#Voltar a mover os ficheiros para a pasta principal + resultado
+mv "$MY_CODE" "../"
+mv "$TEST_MY_CODE" "../"
+mv "mutations.txt" "../"

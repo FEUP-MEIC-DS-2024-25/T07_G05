@@ -54,7 +54,7 @@ function main() {
   const nome_ficheiro_codigo = process.argv.slice(2);
 
   const mutationFilePath = 'reports/mutation/mutation.json'; // Caminho para o seu arquivo mutation.json
-  const outputFilePath = 'mutated_results.txt'; // Caminho para o arquivo de saída
+  const outputFilePath = 'mutations.txt'; // Caminho para o arquivo de saída
   const mutationData = readMutationJson(mutationFilePath);
   const originalCode = mutationData.files[nome_ficheiro_codigo[0]].source;
   const mutants = mutationData.files[nome_ficheiro_codigo[0]].mutants;
