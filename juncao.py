@@ -11,15 +11,14 @@ def run_shell_script_python(code, test):
     except subprocess.CalledProcessError as e:
         print(f"Erro ao executar o script: {e}")
 
-def run_shell_script_javascript():
+def run_shell_script_java(code):
     # Substitua pelo caminho do seu script shell
-    script_path = "./script.sh"
+    script_path = "./script_java.sh"
     try:
-        subprocess.run(["bash", script_path], check=True)
+        subprocess.run(["bash", script_path, code], check=True)
     except subprocess.CalledProcessError as e:
         print(f"Erro ao executar o script: {e}")
 
-#............................................................
 # Recebe como argumentos: linguagem -> código fonte -> ficheiro de teste -> contexto
 if len(sys.argv) < 2:
     print("Uso: python script.py <linguagem> <code file> <test code file>")
@@ -36,9 +35,13 @@ if sys.argv[1] == "python":
     # Esperar a thread terminar (opcional)
     thread.join()
 
-elif sys.argv[1] == "javascript":
+elif sys.argv[1] == "java":
+    if len(sys.argv) < 3:
+        print("Para Java, forneça o código fonte.")
+        sys.exit(1)
+        
     # Criar a thread
-    thread = threading.Thread(target=run_shell_script_javascript)
+    thread = threading.Thread(target=run_shell_script_java, args=(sys.argv[2],))  # Nota: Adicionada vírgula aqui
     # Iniciar a thread
     thread.start()
     # Esperar a thread terminar (opcional)

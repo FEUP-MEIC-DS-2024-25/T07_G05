@@ -14,9 +14,9 @@ TEST_MY_CODE="$2"
 mut.py --target "$MY_CODE" --unit-test "$TEST_MY_CODE" --show-mutants > mutation_report.txt
 
 # Filtrar as linhas das mutações
-python3 ./python/filtra_linhas.py mutation_report.txt mutation_report_filtered.txt
+python3 ./python/filtra_linhas.py mutation_report.txt mutations.txt
 
 # Eliminar o ficheiro auxiliar
 rm -rf mutation_report.txt
 
-echo "Relatório de mutações filtrado salvo em mutation_report_filtered.txt"
+echo "Relatório de mutações filtrado salvo em mutations.txt"
