@@ -89,6 +89,19 @@ node generate_mutants.js
 
 ---
 
+### Java directory
+
+Inside this directory, you have the file *getTests.py*, *Main.Java* and *MainTest.java*.
+To get mutation tests you need to run the python script with the file you want to get the tests from as you can see below:
+
+```bash
+python getTests.py Main.java
+```
+
+The command writes all the mutation tests and saves the results in the *mutations.txt*. 
+
+---
+
 ### Gemini directory
 Inside this directory, you have the files that we used to make the selection of the mutation tests. To do that, we used *Gemini*.
 
