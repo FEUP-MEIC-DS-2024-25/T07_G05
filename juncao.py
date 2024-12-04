@@ -44,7 +44,7 @@ if sys.argv[1] == "python":
     # Esperar a thread terminar (opcional)
     thread.join()
 
-if sys.argv[1] == "javascript":
+elif sys.argv[1] == "javascript":
     if len(sys.argv) < 4:
         print("Para Javascript, forneça o código fonte e o ficheiro de teste.")
         sys.exit(1)
