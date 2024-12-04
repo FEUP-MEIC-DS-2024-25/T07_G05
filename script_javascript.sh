@@ -8,6 +8,15 @@ fi
 MY_CODE="$1"
 TEST_MY_CODE="$2"
 
+# Extrai o nome do ficheiro do MY_CODE (sem a extensão)
+BASE_NAME=$(basename "$MY_CODE" .js)
+
+# Cria o novo nome para o TEST_MY_CODE
+NEW_NAME="${BASE_NAME}.test.js"
+
+# Renomeia o TEST_MY_CODE para o novo nome
+mv "$TEST_MY_CODE" "$NEW_NAME"
+
 #Mover os ficheiros para a pasta abaixo
 mv "$MY_CODE" "javascript"
 mv "$TEST_MY_CODE" "javascript"
