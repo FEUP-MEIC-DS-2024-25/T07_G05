@@ -33,7 +33,7 @@ RUN chmod +x python/script.sh
 RUN javac java/*.java
 
 # Expõe a porta usada pela aplicação, se aplicável
-EXPOSE 3000
+EXPOSE 8080
 
 # Comando padrão para executar a aplicação ou um script principal
 CMD ["bash", "python/script.sh"]
