@@ -10,3 +10,8 @@ Java:
 ```sh
 python3 juncao.py java ./java/Main.java ./java/MainTest.java
 ```
+
+JavaScript:
+```sh
+python3 juncao.py javascript sum.js asdsad.test.js
+```
