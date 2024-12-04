@@ -29,3 +29,6 @@ node generate_mutants.js "$MY_CODE"
 mv "$MY_CODE" "../"
 mv "$TEST_MY_CODE" "../"
 mv "mutations.txt" "../"
+
+#Voltar a dar o nome antigo ao ficheiro
+mv "$NEW_NAME" "$TEST_MY_CODE"
