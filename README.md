@@ -110,7 +110,7 @@ Then, you only need to run the follow command:
 python3 juncao.py <languague> <code-file> <test-code-file> <context>
 ```
 
-The context file is optional, so, if you don't provide it, we will return all the possible mutation tests result. One important thing is that the **context file must be named as context.txt**.
+The context file is optional, so, if you don't provide it, we will return all the possible mutation tests result. One important thing is that the **context file must be named as context.txt**. The **result is saved in the mutations.txt** file.
 
 Below you have some examples how to run this code.
 
