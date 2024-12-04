@@ -103,6 +103,37 @@ Now, you only need to run the *select_tests.py* file and a query will be sent to
 
 ---
 
+### Join the back-end
+To run the back-end all together, you only need to put the code file, the test file and the context file into DS directory.
+Then, you only need to run the follow command:
+```sh
+python3 juncao.py <languague> <code-file> <test-code-file> <context>
+```
+
+The context file is optional, so, if you don't provide it, we will return all the possible mutation tests result. One important thing is that the **context file must be named as context.txt**.
+
+Below you have some examples how to run this code.
+
+- For python:
+```sh
+python3 juncao.py python ./python/my_code.py ./python/test_my_code.py
+```
+
+- For Java:
+```sh
+python3 juncao.py java ./java/Main.java ./java/MainTest.java
+```
+
+- For JavaScript:
+```sh
+python3 juncao.py javascript sum.js asdsad.test.js
+```
+
+- For python with context:
+```sh
+python3 juncao.py python ./python/my_code.py ./python/test_my_code.py context.txt
+```
+
 ### Mockups in Figma
 We used the Figma for doing our mockups. The results are in the next video:
 
