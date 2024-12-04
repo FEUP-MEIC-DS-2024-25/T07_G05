@@ -1,0 +1,36 @@
+The provided context states that all results must be greater than 5.  Therefore, we need to select tests that will exercise the code's behavior in scenarios where the result might be less than or equal to 5, and also where the result will be greater than 5. The crucial aspects are the conditional statement and the return values (`d % 10`, `d * 10`, `d`).  We'll prioritize tests covering different conditional branches and return value types to get broad coverage.
+
+
+```python
+def contas(a, b):
+     c = a + b
+     d = c + 1
+     if d >= 10:
+         return d * 10
+     else:
+         return d
+
+def contas(a, b):
+     c = a - b
+     d = c - 1
+     if d < 10:
+         return d * 10
+     else:
+         return d
+
+def contas(a, b):
+     c = a + b
+     d = c - 1
+     if d < 10:
+         return d % 10
+     else:
+         return d
+
+def contas(a, b):
+     c = a + b
+     d = c + 1
+     if d < 10:
+         return d * 10
+     else:
+         return d
+```
