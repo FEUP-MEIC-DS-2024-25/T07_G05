@@ -147,6 +147,162 @@ python3 juncao.py javascript sum.js asdsad.test.js
 python3 juncao.py python ./python/my_code.py ./python/test_my_code.py context.txt
 ```
 
+### Database
+We used mongoDB to keep data related to the users interactions. The database is composed by two collection, one that is the user (all the users) and other the historico (all the historicos). Each user have an id, nome, email, password and a list of historicos. Each historico is composed by an id, codigo that is the path for the code file, teste that is a path for the teste code and contexto that is the path for the context of the code.
+
+Users:
+~~~
+[
+    {
+      "_id": "historico_1",
+      "codigo": "codigo_1.js",
+      "teste": "teste_1.js",
+      "contexto": "contexto_1.txt"
+    },
+    {
+      "_id": "historico_2",
+      "codigo": "codigo_2.js",
+      "teste": "teste_2.js",
+      "contexto": "contexto_2.txt"
+    },
+    ...
+]
+~~~
+
+Historicos:
+~~~
+[
+    {
+      "_id": "historico_1",
+      "codigo": "codigo_1.js",
+      "teste": "teste_1.js",
+      "contexto": "contexto_1.txt"
+    },
+    {
+      "_id": "historico_2",
+      "codigo": "codigo_2.js",
+      "teste": "teste_2.js",
+      "contexto": "contexto_2.txt"
+    },
+    ...
+]
+~~~
+
+To run the database, you need to run the following blocks, separately, in the DS directory:
+
+```bash
+docker stop mongo
+docker rm mongo
+docker run -d --name mongo -p 27017:27017 mongo
+```
+
+```bash
+docker cp bd/client.json mongo:/tmp
+docker cp bd/historico.json mongo:/tmp
+docker exec -it mongo bash
+```
+
+```bash
+mongoimport -d twisterAI -c users --file /tmp/client.json --jsonArray
+mongoimport -d twisterAI -c historicos --file /tmp/historico.json --jsonArray
+
+mongosh
+```
+
+```bash
+use twisterAI
+```
+
+### Back end for database
+We made an API which you can make get, update, delete and update each historico and get all users and historicos.
+
+To run it, you need to run the following command in DS directory:
+```bash
+node index.js
+```
+
+Here, you can check some examples how to make requests:
+
+To put a user (update)
+```bash
+curl -X PUT http://localhost:3000/users/user10 \
+  -H "Content-Type: application/json" \
+  -d '{
+    "nome": "Alice Smith",
+    "email": "alice.smith@example.com",
+    "password": "Al1ceS!2024",
+    "historico": ["historico_1", "historico_2"]
+  }'
+
+```
+
+To get all users:
+```bash
+curl http://localhost:3000/users
+```
+
+To get a user:
+```bash
+curl http://localhost:3000/users/user1
+```
+
+To add a user:
+```bash
+curl -X POST http://localhost:3000/users \
+  -H "Content-Type: application/json" \
+  -d '{
+    "_id": "user6",
+    "nome": "Frank Moore",
+    "email": "frank.moore@example.com",
+    "password": "Fr@nkM2024",
+    "historico": ["historico_16", "historico_17"]
+  }'
+```
+
+To remove a user:
+```bash
+curl -X DELETE http://localhost:3000/users/user6
+```
+
+To get all historico entries:
+```bash
+curl http://localhost:3000/historico
+```
+
+To get a historico entry by ID:
+
+```bash
+curl http://localhost:3000/historico/historico_1
+``` 
+
+To add a new historico entry:
+```bash
+curl -X POST http://localhost:3000/historico \
+  -H "Content-Type: application/json" \
+  -d '{
+    "_id": "historico_101",
+    "codigo": "codigo_101.js",
+    "teste": "teste_101.js",
+    "contexto": "contexto_101.txt"
+  }'
+```
+
+To update an existing historico entry:
+```bash
+curl -X PUT http://localhost:3000/historico/historico_101 \
+  -H "Content-Type: application/json" \
+  -d '{
+    "codigo": "codigo_102.js",
+    "teste": "teste_102.js",
+    "contexto": "contexto_102.txt"
+  }'
+```
+
+To delete a historico entry:
+```bash
+curl -X DELETE http://localhost:3000/historico/historico_101
+```
+
 ### Mockups in Figma
 We used the Figma for doing our mockups. The results are in the next video:
 
