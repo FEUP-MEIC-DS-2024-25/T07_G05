@@ -6,15 +6,19 @@ RUN apt-get update && apt-get install -y \
     python3 \
     python3-pip \
     openjdk-11-jdk \
-    nodejs \
-    npm \
     git \
     curl \
+    lsb-release \
     && apt-get clean
 
-# Instalar Node.js versão 16.x ou 18.x diretamente do repositório oficial
-RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
-    apt-get install -y nodejs
+# Adicionar o repositório do Node.js para a versão desejada (exemplo: 18.x)
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
+
+# Instalar o Node.js e npm
+RUN apt-get install -y nodejs
+
+# Verificar se a versão correta do Node.js foi instalada
+RUN node -v
 
 # Instale o Mutmut globalmente
 RUN pip3 install --no-cache-dir MutPy
