@@ -13,7 +13,8 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean
 
 # Instale o Mutmut globalmente
-RUN pip3 install --no-cache-dir mutmut
+RUN pip3 install --no-cache-dir MutPy
+RUN pip3 install --no-cache-dir google-generativeai
 
 # Defina o diretório de trabalho no container
 WORKDIR /app
