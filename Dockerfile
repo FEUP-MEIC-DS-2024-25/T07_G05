@@ -12,6 +12,9 @@ RUN apt-get update && apt-get install -y \
     curl \
     && apt-get clean
 
+# Instale o Mutmut globalmente
+RUN pip3 install --no-cache-dir mutmut
+
 # Defina o diretório de trabalho no container
 WORKDIR /app
 
