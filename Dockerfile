@@ -12,6 +12,10 @@ RUN apt-get update && apt-get install -y \
     curl \
     && apt-get clean
 
+# Instalar Node.js versão 16.x ou 18.x diretamente do repositório oficial
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
+    apt-get install -y nodejs
+
 # Instale o Mutmut globalmente
 RUN pip3 install --no-cache-dir MutPy
 RUN pip3 install --no-cache-dir google-generativeai
