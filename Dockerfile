@@ -1,5 +1,5 @@
 # Use uma imagem base com suporte para múltiplas linguagens
-FROM ubuntu:22.04
+FROM ubuntu:latest
 
 # Atualize o sistema e instale dependências essenciais
 RUN apt-get update && apt-get install -y \
@@ -19,7 +19,7 @@ RUN apt-get install -y nodejs
 
 # Verificar se a versão correta do Node.js foi instalada
 RUN node -v
-
+    
 # Instale o Mutmut globalmente
 RUN pip3 install --no-cache-dir MutPy
 RUN pip3 install --no-cache-dir google-generativeai
