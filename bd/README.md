@@ -15,7 +15,7 @@ docker exec -it mongo bash
 
 ```bash
 mongoimport -d twisterAI -c users --file /tmp/client.json --jsonArray
-mongoimport -d twisterAI -c historico --file /tmp/historico.json --jsonArray
+mongoimport -d twisterAI -c historicos --file /tmp/historico.json --jsonArray
 
 mongosh
 ```

@@ -15,7 +15,7 @@ const db = mongoose.connection;
 db.on("error", console.error.bind(console, "Erro de conexão:"));
 db.once("open", () => console.log("Conectado ao MongoDB!"));
 
-// Definir um modelo de usuário
+// Definir modelos
 const UserSchema = new mongoose.Schema({
   _id: String,
   nome: String,
@@ -24,11 +24,18 @@ const UserSchema = new mongoose.Schema({
   historico: [String],
 });
 
+const HistoricoSchema = new mongoose.Schema({
+  _id: String,
+  codigo: String,
+  teste: String,
+  contexto: String,
+});
+
 const User = mongoose.model("User", UserSchema);
+const Historico = mongoose.model("Historico", HistoricoSchema);
 
-// Rotas
+// Rotas para Usuários
 
-// Obter todos os usuários
 app.get("/users", async (req, res) => {
   try {
     const users = await User.find();
@@ -38,7 +45,6 @@ app.get("/users", async (req, res) => {
   }
 });
 
-// Obter um usuário pelo _id
 app.get("/users/:id", async (req, res) => {
   const { id } = req.params;
 
@@ -51,7 +57,6 @@ app.get("/users/:id", async (req, res) => {
   }
 });
 
-// Criar um novo usuário
 app.post("/users", async (req, res) => {
   const data = req.body;
 
@@ -64,7 +69,6 @@ app.post("/users", async (req, res) => {
   }
 });
 
-// Atualizar um usuário existente
 app.put("/users/:id", async (req, res) => {
   const { id } = req.params;
   const data = req.body;
@@ -78,7 +82,6 @@ app.put("/users/:id", async (req, res) => {
   }
 });
 
-// Excluir um usuário
 app.delete("/users/:id", async (req, res) => {
   const { id } = req.params;
 
@@ -86,6 +89,71 @@ app.delete("/users/:id", async (req, res) => {
     const deletedUser = await User.findByIdAndDelete(id);
     if (!deletedUser) return res.status(404).send("Usuário não encontrado");
     res.json({ message: "Usuário excluído com sucesso", user: deletedUser });
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+});
+
+// Rotas para Histórico
+
+app.get("/historico", async (req, res) => {
+  try {
+    const historico = await Historico.find();
+    res.json(historico);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+});
+
+app.get("/historico/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const hist = await Historico.findById(id);
+    if (!hist) return res.status(404).send("Histórico não encontrado");
+    res.json(hist);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+});
+
+app.post("/historico", async (req, res) => {
+  const data = req.body;
+
+  try {
+    const newHistorico = new Historico(data);
+    await newHistorico.save();
+    res.status(201).json(newHistorico);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+});
+
+app.put("/historico/:id", async (req, res) => {
+  const { id } = req.params;
+  const data = req.body;
+
+  try {
+    const updatedHistorico = await Historico.findByIdAndUpdate(id, data, {
+      new: true,
+    });
+    if (!updatedHistorico) return res.status(404).send("Histórico não encontrado");
+    res.json(updatedHistorico);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+});
+
+app.delete("/historico/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const deletedHistorico = await Historico.findByIdAndDelete(id);
+    if (!deletedHistorico) return res.status(404).send("Histórico não encontrado");
+    res.json({
+      message: "Histórico excluído com sucesso",
+      historico: deletedHistorico,
+    });
   } catch (err) {
     res.status(500).send(err.message);
   }

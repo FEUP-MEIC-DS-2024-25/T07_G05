@@ -44,3 +44,42 @@ curl -X POST http://localhost:3000/users \
 ```bash
 curl -X DELETE http://localhost:3000/users/user6
 ```
+
+# To get all historico entries
+```bash
+curl http://localhost:3000/historico
+```
+
+# To get a historico entry by ID
+
+```bash
+curl http://localhost:3000/historico/historico_1
+``` 
+
+# To add a new historico entry
+```bash
+curl -X POST http://localhost:3000/historico \
+  -H "Content-Type: application/json" \
+  -d '{
+    "_id": "historico_101",
+    "codigo": "codigo_101.js",
+    "teste": "teste_101.js",
+    "contexto": "contexto_101.txt"
+  }'
+```
+
+# To update an existing historico entry
+```bash
+curl -X PUT http://localhost:3000/historico/historico_101 \
+  -H "Content-Type: application/json" \
+  -d '{
+    "codigo": "codigo_102.js",
+    "teste": "teste_102.js",
+    "contexto": "contexto_102.txt"
+  }'
+```
+
+# To delete a historico entry
+```bash
+curl -X DELETE http://localhost:3000/historico/historico_101
+```
