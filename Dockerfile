@@ -1,39 +1,39 @@
-# Usa uma imagem base com Node.js e instala Java e Python
-FROM node:18
+# Use uma imagem base com suporte para múltiplas linguagens
+FROM ubuntu:22.04
 
-# Instala Java, Python e outras ferramentas necessárias
+# Atualize o sistema e instale dependências essenciais
 RUN apt-get update && apt-get install -y \
-    openjdk-11-jdk python3 python3-pip && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+    python3 \
+    python3-pip \
+    openjdk-11-jdk \
+    nodejs \
+    npm \
+    git \
+    curl \
+    && apt-get clean
 
-# Define variáveis de ambiente para Java
-ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
-ENV PATH="$JAVA_HOME/bin:$PATH"
-
-# Define o diretório de trabalho
+# Defina o diretório de trabalho no container
 WORKDIR /app
 
-# Copia os ficheiros de dependências do JavaScript e Python
-COPY javascript/package*.json ./javascript/
-COPY python/requirements.txt ./python/
-
-# Instala as dependências do JavaScript
-RUN cd ./javascript && npm install
-
-# Instala as dependências do Python
-RUN pip3 install -r ./python/requirements.txt
-
-# Copia todo o código da aplicação para o container
+# Copie todos os arquivos do projeto para o container
 COPY . .
 
-# Torna o script .sh executável, caso necessário
-RUN chmod +x python/script.sh
+# Instale dependências do Python (requirements.txt para o diretório python/)
+RUN pip install --no-cache-dir -r python/requirements.txt
 
-# Compila o código Java
+# Instale dependências do Node.js (JavaScript e backend)
+RUN npm install --prefix javascript
+RUN npm install --prefix back_end_bd
+
+# Compile os arquivos Java
 RUN javac java/*.java
 
-# Expõe a porta usada pela aplicação, se aplicável
-EXPOSE 8080
+# Ajuste permissões para os scripts bash (se necessário)
+RUN chmod +x *.sh
 
-# Comando padrão para executar a aplicação ou um script principal
-CMD ["bash", "python/script.sh"]
+# Exponha portas necessárias (se tiver serviços web ou APIs)
+EXPOSE 3000  
+# Ajuste conforme a aplicação
+
+# Defina o comando principal
+CMD ["python3", "juncao.py"]
