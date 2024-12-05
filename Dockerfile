@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean
 
 # Adicionar o repositório do Node.js para a versão desejada (exemplo: 18.x)
-RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
 
 # Instalar o Node.js e npm
 RUN apt-get install -y nodejs
