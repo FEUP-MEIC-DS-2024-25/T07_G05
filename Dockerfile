@@ -18,15 +18,16 @@ WORKDIR /app
 # Copie todos os arquivos do projeto para o container
 COPY . .
 
-# Instale dependências do Python (requirements.txt para o diretório python/)
-RUN pip install --no-cache-dir -r python/requirements.txt
-
 # Instale dependências do Node.js (JavaScript e backend)
 RUN npm install --prefix javascript
 RUN npm install --prefix back_end_bd
 
-# Compile os arquivos Java
-RUN javac java/*.java
+# Adicionar JUnit ao projeto
+RUN curl -O https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/1.9.3/junit-platform-console-standalone-1.9.3.jar \
+    && mv junit-platform-console-standalone-1.9.3.jar /usr/local/lib/
+
+# Compilar o código Java com o JUnit no classpath
+RUN javac -cp /usr/local/lib/junit-platform-console-standalone-1.9.3.jar java/*.java
 
 # Ajuste permissões para os scripts bash (se necessário)
 RUN chmod +x *.sh
