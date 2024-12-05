@@ -1,5 +1,5 @@
 # Use uma imagem base com suporte para múltiplas linguagens
-FROM ubuntu:latest
+FROM ubuntu:22.04
 
 # Atualize o sistema e instale dependências essenciais
 RUN apt-get update && apt-get install -y \
@@ -12,14 +12,17 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean
 
 # Adicionar o repositório do Node.js para a versão desejada (exemplo: 18.x)
-RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
 
 # Instalar o Node.js e npm
 RUN apt-get install -y nodejs
 
-# Verificar se a versão correta do Node.js foi instalada
-RUN node -v
-    
+# Confirmar que a versão correta do Node.js foi instalada
+RUN node -v && npm -v
+
+# Atualizar o npm para a última versão estável
+RUN npm install -g npm@latest
+
 # Instale o Mutmut globalmente
 RUN pip3 install --no-cache-dir MutPy
 RUN pip3 install --no-cache-dir google-generativeai

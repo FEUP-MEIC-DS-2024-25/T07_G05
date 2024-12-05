@@ -19,7 +19,7 @@ mv "$TEST_MY_CODE" "$NEW_NAME"
 
 #Mover os ficheiros para a pasta abaixo
 mv "$MY_CODE" "javascript"
-mv "$TEST_MY_CODE" "javascript"
+mv "$NEW_NAME" "javascript"
 
 #Fazer o processo normal para obter os teste
 cd javascript
@@ -27,8 +27,9 @@ node generate_mutants.js "$MY_CODE"
 
 #Voltar a mover os ficheiros para a pasta principal + resultado
 mv "$MY_CODE" "../"
-mv "$TEST_MY_CODE" "../"
+mv "$NEW_NAME" "../"
 mv "mutations.txt" "../"
 
 #Voltar a dar o nome antigo ao ficheiro
+cd ..
 mv "$NEW_NAME" "$TEST_MY_CODE"

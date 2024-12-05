@@ -139,7 +139,7 @@ python3 juncao.py java ./java/Main.java ./java/MainTest.java
 
 - For JavaScript:
 ```sh
-python3 juncao.py javascript sum.js asdsad.test.js
+python3 juncao.py javascript sum.js asdsad.js
 ```
 
 - For python with context:
