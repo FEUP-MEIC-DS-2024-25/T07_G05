@@ -51,11 +51,13 @@ function writeResultsToFile(results, outputFilePath) {
 
 // Função principal
 function main() {
+  const nome_ficheiro_codigo = process.argv.slice(2);
+
   const mutationFilePath = 'reports/mutation/mutation.json'; // Caminho para o seu arquivo mutation.json
-  const outputFilePath = 'mutated_results.txt'; // Caminho para o arquivo de saída
+  const outputFilePath = 'mutations.txt'; // Caminho para o arquivo de saída
   const mutationData = readMutationJson(mutationFilePath);
-  const originalCode = mutationData.files['sum.js'].source;
-  const mutants = mutationData.files['sum.js'].mutants;
+  const originalCode = mutationData.files[nome_ficheiro_codigo[0]].source;
+  const mutants = mutationData.files[nome_ficheiro_codigo[0]].mutants;
 
   // Aplica os mutantes e obtém os códigos modificados
   const mutatedResults = applyMutants(originalCode, mutants);
