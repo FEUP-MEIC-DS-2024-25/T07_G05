@@ -93,10 +93,122 @@ const App: React.FC = () => {
       setResponse("Erro durante o salvamento do contexto"); // Atualiza a mensagem de erro no UI
     }
   };
+
+  
   
 
   return (
-    <div className="flex flex-col items-center space-y-6 p-6">
+    <div
+      style={{
+        fontFamily: "Arial, sans-serif",
+        margin: "0",
+        padding: "0",
+        backgroundColor: "#302c54",
+        color: "white",
+      }}
+    >
+      <style>{`
+        h1 {
+          font-size: 24px;
+          font-weight: bold;
+        }
+
+        header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 20px;
+          background-color: #2a274a;
+          border-bottom: 2px solid #524f81;
+        }
+
+        header nav label {
+          font-size: 14px;
+          color: #c8c8d0;
+        }
+
+        header nav select {
+          margin-left: 10px;
+          padding: 5px 10px;
+          border: none;
+          border-radius: 4px;
+          background-color: #524f81;
+          color: white;
+        }
+
+        main {
+          padding: 20px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+
+        main section {
+          margin-bottom: 20px;
+          width: 100%;
+          max-width: 600px;
+        }
+
+        main section label {
+          font-size: 16px;
+          font-weight: bold;
+          margin-bottom: 5px;
+          display: block;
+        }
+
+        textarea {
+          width: 100%;
+          height: 100px;
+          background-color: #524f81;
+          color: white;
+          border: none;
+          border-radius: 5px;
+          padding: 10px;
+        }
+
+        input.upload_btn {
+          display: block;
+          margin-top: 10px;
+          padding: 10px 15px;
+          border: none;
+          border-radius: 5px;
+          background-color: #524f81;
+          color: white;
+          cursor: pointer;
+        }
+
+        input.upload_btn:hover {
+          background-color: #6a67a3;
+        }
+
+        button {
+          margin-right: 10px;
+          padding: 10px 15px;
+          border: none;
+          border-radius: 5px;
+          background-color: #524f81;
+          color: white;
+          font-size: 14px;
+          cursor: pointer;
+        }
+
+        button:hover {
+          background-color: #6a67a3;
+        }
+
+        button:last-child {
+          margin-right: 0;
+        }
+
+        footer {
+          margin-top: 20px;
+          padding: 10px;
+          background-color: #2a274a;
+          text-align: center;
+          color: #c8c8d0;
+          font-size: 14px;
+        }
+      `}</style>
       <header>
         <div>
           <h1>TwisterAI</h1>
