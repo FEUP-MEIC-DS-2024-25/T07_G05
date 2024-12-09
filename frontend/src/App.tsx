@@ -43,35 +43,37 @@ const App: React.FC = () => {
   
 
   const handleGenerateTests = async () => {
-    const textarea = document.getElementById('context') as HTMLTextAreaElement;
+    const textarea = document.getElementById("context") as HTMLTextAreaElement;
     const context = textarea.value; // Obtém o valor do <textarea>
-
-    console.log(context)
+    const languageElem = document.getElementById("language") as HTMLSelectElement;
+    const language = languageElem.value;
   
     if (!context.trim()) {
-      setResponse('Por favor, insira algum contexto.'); // Mostra um aviso se o textarea estiver vazio
+      setResponse("Por favor, insira algum contexto."); // Mostra um aviso se o textarea estiver vazio
       return;
     }
   
     try {
-      const saveResponse = await fetch('http://localhost:3000/save-context', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ context }), // Envia o conteúdo como JSON
+      // Envia o conteúdo como JSON
+      const saveResponse = await fetch("http://localhost:3000/save-context", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ context, language }), // Formata os dados corretamente
       });
   
       if (saveResponse.ok) {
         const jsonResponse = await saveResponse.json();
-        console.log('Context saved successfully:', jsonResponse);
+        console.log("Context saved successfully:", jsonResponse);
         setResponse(jsonResponse.message); // Atualiza a mensagem de sucesso no UI
       } else {
-        throw new Error('Erro ao salvar o contexto');
+        throw new Error("Erro ao salvar o contexto");
       }
     } catch (error) {
-      console.error('Erro durante o salvamento do contexto:', error);
-      setResponse('Erro durante o salvamento do contexto'); // Atualiza a mensagem de erro no UI
+      console.error("Erro durante o salvamento do contexto:", error);
+      setResponse("Erro durante o salvamento do contexto"); // Atualiza a mensagem de erro no UI
     }
   };
+  
 
   return (
     <div className="flex flex-col items-center space-y-6 p-6">
@@ -82,7 +84,7 @@ const App: React.FC = () => {
         <div>
           <nav>
             <label>Select the language:</label>
-            <select>
+            <select id="language">
               <option value="java">Java</option>
               <option value="javascript">JavaScript</option>
               <option value="python">Python</option>

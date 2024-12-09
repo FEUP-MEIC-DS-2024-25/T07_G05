@@ -45,7 +45,7 @@ app.post('/upload', upload.single('file'), (req, res) => {
 
 
 app.post('/save-context', (req, res) => {
-  const { context } = req.body; // Recebe o campo 'context' do corpo da requisição
+  const { context, language } = req.body; // Recebe diretamente do corpo da requisição
 
   if (!context) {
     return res.status(400).send('O campo context está vazio.');
@@ -60,7 +60,10 @@ app.post('/save-context', (req, res) => {
     }
     res.send({ message: 'Contexto salvo com sucesso!' });
   });
+
+  console.log(language);
 });
+
 
 // Iniciar o servidor
 app.listen(port, () => {
