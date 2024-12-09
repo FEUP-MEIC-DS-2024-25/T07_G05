@@ -39,6 +39,26 @@ const App: React.FC = () => {
       console.error("Error during file upload:", error);
     }
   };
+
+  const handleDownloadMutations = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/files/mutations.txt");
+      if (!response.ok) throw new Error("Erro ao baixar o arquivo");
+
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "mutations.txt";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Erro durante o download do arquivo:", error);
+      setResponse("Erro durante o download do arquivo");
+    }
+  };
   
   
 
@@ -123,7 +143,7 @@ const App: React.FC = () => {
 
         <section>
             <button onClick={handleGenerateTests}>Generate mutant tests</button>
-            <button>Download mutant tests</button>
+            <button onClick={handleDownloadMutations}>Download mutant tests</button>
         </section>
 
 

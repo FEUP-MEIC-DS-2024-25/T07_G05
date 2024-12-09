@@ -90,15 +90,7 @@ app.post('/save-context', async (req, res) => {
     console.log(targetPaths)
     const pythonProcess = spawn('python3', [scriptPath, language, ...targetPaths]);
 
-    pythonProcess.on('close', async (code) => {
-      if (code === 0) {
-        // Restaurar os arquivos para seus caminhos de origem
-        await Promise.all(targetPaths.map((tgt, idx) => fsPromises.rename(tgt, sourcePaths[idx])));
-        res.send({ message: 'Processo concluído com sucesso!' });
-      } else {
-        res.status(500).send('Erro no script Python.');
-      }
-    });
+   
 
     pythonProcess.on('error', (err) => {
       console.error('Erro ao executar o script Python:', err);
@@ -107,6 +99,17 @@ app.post('/save-context', async (req, res) => {
   } catch (err) {
     console.error('Erro no processo:', err);
     res.status(500).send('Erro no processo.');
+  }
+});
+
+// Rota para servir o arquivo mutations.txt
+app.get("/files/mutations.txt", (req, res) => {
+  const mutationsFile = path.join("files", "mutations.txt");
+
+  if (fs.existsSync(mutationsFile)) {
+    res.download(mutationsFile); // Permite o download do arquivo
+  } else {
+    res.status(404).json({ message: "Mutations file not found" });
   }
 });
 
