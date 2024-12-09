@@ -126,7 +126,7 @@ app.post('/save-context', async (req, res) => {
             console.warn('mutations.txt não encontrado em ../. Certifique-se de que o script Python o gerou.');
           }
 
-          res.send({ message: 'Processo concluído com sucesso!' });
+          res.send({ message: 'Process completed successfully!' });
         } catch (err) {
           console.error('Erro ao mover os arquivos:', err);
           res.status(500).send('Erro ao mover os arquivos após a execução.');
