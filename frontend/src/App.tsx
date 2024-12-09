@@ -72,14 +72,22 @@ const App: React.FC = () => {
       setResponse('Erro durante o salvamento do contexto'); // Atualiza a mensagem de erro no UI
     }
   };
-  
-  
 
   return (
     <div className="flex flex-col items-center space-y-6 p-6">
       <header>
         <div>
           <h1>TwisterAI</h1>
+        </div>
+        <div>
+          <nav>
+            <label>Select the language:</label>
+            <select>
+              <option value="java">Java</option>
+              <option value="javascript">JavaScript</option>
+              <option value="python">Python</option>
+            </select>
+          </nav>
         </div>
       </header>
       <main>
