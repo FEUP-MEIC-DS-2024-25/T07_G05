@@ -315,6 +315,7 @@ After join with team 7.2 and 7.3, we needed to change the design of our interfac
 <video width="640" height="360" controls>
   <source src="./multimidia/full.webm" type="video/webm">
 </video>
+![video](https://github.com/FEUP-MEIC-DS-2024-25/T07_G05/blob/main/multimidia/full.gif)
 
 
 To run, you need to follow these steps:
