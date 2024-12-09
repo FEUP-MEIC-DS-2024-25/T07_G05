@@ -85,11 +85,27 @@ app.post('/save-context', async (req, res) => {
     await Promise.all(sourcePaths.map((src, idx) => fsPromises.rename(src, targetPaths[idx])));
     console.log('Arquivos copiados para:', targetPaths);
 
+    //Ver quais os ficheiros
+    const files_names = []
+    if (language === "python"){
+      files_names.push('code_file.py')
+      files_names.push('test-file.py')
+      files_names.push('context.txt')
+    }else if (language === "java"){
+      files_names.push('code_file.java')
+      files_names.push('test-file.java')
+      files_names.push('context.txt')
+    }else{ //java script
+      files_names.push('code_file.js')
+      files_names.push('test-file.js')
+      files_names.push('context.txt')
+    }
+
     // Executar o script Python
     const scriptPath = path.join(__dirname, '../juncao.py');
     const pythonProcess = spawn(
       'python3',
-      [scriptPath, language, 'code_file.py', 'test-file.py', 'context.txt'],
+      [scriptPath, language, ...files_names],
       { cwd: path.join(__dirname, '../') } // Diretório de trabalho para o script Python
     );
 

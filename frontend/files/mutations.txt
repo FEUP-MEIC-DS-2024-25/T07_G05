@@ -1,12 +1,8 @@
-The phrase "maior de 5" translates from Portuguese to "greater than 5".  Therefore, we need tests that cover numbers greater than, less than, and equal to 5, as well as edge cases.  Without knowing the specific programming language or function being tested, I'll provide examples in Python and Javascript.
-
-
-**Python:**
-
 ```python
 import unittest
 
 class TestGreaterThanFive(unittest.TestCase):
+
     def test_greater_than_five(self):
         self.assertTrue(is_greater_than_five(6))
 
@@ -16,52 +12,11 @@ class TestGreaterThanFive(unittest.TestCase):
     def test_less_than_five(self):
         self.assertFalse(is_greater_than_five(4))
 
-    def test_large_number(self): #Edge case:  very large number
-        self.assertTrue(is_greater_than_five(1000000))
-
-    def test_negative_number(self): #Edge case: negative number
-        self.assertFalse(is_greater_than_five(-1))
-
-
-def is_greater_than_five(number):
-    return number > 5
+    def test_large_number(self): #Boundary/Edge Case
+        self.assertTrue(is_greater_than_five(1000))
 
 
 if __name__ == '__main__':
     unittest.main()
 ```
-
-**Javascript:**
-
-```javascript
-const assert = require('assert');
-
-describe('isGreaterThanFive', () => {
-  it('should return true for numbers greater than 5', () => {
-    assert.ok(isGreaterThanFive(6));
-  });
-
-  it('should return false for numbers equal to 5', () => {
-    assert.ok(!isGreaterThanFive(5));
-  });
-
-  it('should return false for numbers less than 5', () => {
-    assert.ok(!isGreaterThanFive(4));
-  });
-
-  it('should return true for a large number', () => { // Edge case
-    assert.ok(isGreaterThanFive(1000000));
-  });
-
-  it('should return false for a negative number', () => { //Edge case
-    assert.ok(!isGreaterThanFive(-1));
-  });
-});
-
-
-function isGreaterThanFive(number) {
-  return number > 5;
-}
-```
-
-These tests cover the core functionality and important edge cases to ensure the function correctly identifies numbers greater than 5. Remember to install the necessary testing framework (`unittest` for Python, or a similar framework like `mocha` for Javascript) before running these tests.
+All four tests are important for comprehensive test coverage as they cover the three logical cases (greater than, equal to, and less than 5) and an edge case.  There's no reason to remove any of them.
