@@ -310,12 +310,7 @@ The prototype is available in the link by clicking in
 [here](https://www.figma.com/design/ewbsuGg3wS850OQ8ojRx6m/Demo-DS?node-id=0-1&node-type=canvas&t=uvDv5qWIqdJ7Jwzd-0).
 
 ### Front-end + Back-end
-After join with team 7.2 and 7.3, we needed to change the design of our interface. Here you can see un example of how to use the interface. 
-
-<video width="640" height="360" controls>
-  <source src="./multimidia/full.webm" type="video/webm">
-</video>
-![video](https://github.com/FEUP-MEIC-DS-2024-25/T07_G05/blob/main/multimidia/full.gif)
+After join with team 7.2 and 7.3, we needed to change the design of our interface. See an example of how to use the interface here: [demo](https://github.com/FEUP-MEIC-DS-2024-25/T07_G05/blob/main/multimidia/full.webm)
 
 
 To run, you need to follow these steps:
