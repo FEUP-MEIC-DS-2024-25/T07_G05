@@ -41,6 +41,39 @@ const App: React.FC = () => {
     }
   };
 
+  const handleGenerateTests = async () => {
+    const textarea = document.getElementById('context') as HTMLTextAreaElement;
+    const context = textarea.value; // Obtém o valor do <textarea>
+
+    console.log(context)
+  
+    if (!context.trim()) {
+      setResponse('Por favor, insira algum contexto.'); // Mostra um aviso se o textarea estiver vazio
+      return;
+    }
+  
+    try {
+      const saveResponse = await fetch('http://localhost:3000/save-context', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ context }), // Envia o conteúdo como JSON
+      });
+  
+      if (saveResponse.ok) {
+        const jsonResponse = await saveResponse.json();
+        console.log('Context saved successfully:', jsonResponse);
+        setResponse(jsonResponse.message); // Atualiza a mensagem de sucesso no UI
+      } else {
+        throw new Error('Erro ao salvar o contexto');
+      }
+    } catch (error) {
+      console.error('Erro durante o salvamento do contexto:', error);
+      setResponse('Erro durante o salvamento do contexto'); // Atualiza a mensagem de erro no UI
+    }
+  };
+  
+  
+
   return (
     <div className="flex flex-col items-center space-y-6 p-6">
       <header>
@@ -73,14 +106,15 @@ const App: React.FC = () => {
         </section>
 
         <section>
-          <label htmlFor="context">Give me some context about your code:</label>
-          <textarea id="context" placeholder="Insert here the context."></textarea>
+            <label htmlFor="context">Give me some context about your code:</label>
+            <textarea id="context" placeholder="Insert here the context."></textarea>
         </section>
 
         <section>
-          <button>Generate mutant tests</button>
-          <button>Download mutant tests</button>
+            <button onClick={handleGenerateTests}>Generate mutant tests</button>
+            <button>Download mutant tests</button>
         </section>
+
 
         <section>
           {/* Exibe a resposta do servidor */}
