@@ -310,7 +310,7 @@ The prototype is available in the link by clicking in
 [here](https://www.figma.com/design/ewbsuGg3wS850OQ8ojRx6m/Demo-DS?node-id=0-1&node-type=canvas&t=uvDv5qWIqdJ7Jwzd-0).
 
 ### Front-end + Back-end
-After join with team 7.2 and 7.3, we need to change the design of our interface. Here you can see un example of how to use the interface. 
+After join with team 7.2 and 7.3, we needed to change the design of our interface. Here you can see un example of how to use the interface. 
 
 <video width="640" height="360" controls>
   <source src="./multimidia/full.webm" type="video/webm">
