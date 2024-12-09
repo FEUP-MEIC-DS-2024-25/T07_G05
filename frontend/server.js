@@ -17,26 +17,32 @@ app.use(bodyParser.json()); // Para processar o JSON enviado pelo cliente
 // Habilitar o CORS para todas as origens
 app.use(cors());
 
-// Configuração do multer para armazenar os arquivos na pasta 'files'
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, dir);
-  },
-  filename: (req, file, cb) => {
-    // Definir o nome do arquivo como o original, ou você pode gerar um nome único
-    cb(null, Date.now() + path.extname(file.originalname));
-  }
+const upload = multer({
+  storage: multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, dir);
+    },
+    filename: (req, file, cb) => {
+      const type = req.headers['x-file-type'] || 'default'; // Leia o cabeçalho
+      if (type === 'code') {
+        cb(null, 'code_file' + path.extname(file.originalname));
+      } else if (type === 'test') {
+        cb(null, 'test-file' + path.extname(file.originalname));
+      } else {
+        cb(null, Date.now() + path.extname(file.originalname));
+      }
+    },
+  }),
 });
 
-const upload = multer({ storage: storage });
-
-// Rota para upload de arquivo
+// Endpoint de upload
 app.post('/upload', upload.single('file'), (req, res) => {
   if (!req.file) {
-    return res.status(400).send('Nenhum arquivo enviado.');
+    return res.status(400).send("No file uploaded.");
   }
-  res.send({ filename: req.file.filename }); // Responde com o nome do arquivo enviado
+  res.send({ filename: req.file.filename });
 });
+
 
 app.post('/save-context', (req, res) => {
   const { context } = req.body; // Recebe o campo 'context' do corpo da requisição

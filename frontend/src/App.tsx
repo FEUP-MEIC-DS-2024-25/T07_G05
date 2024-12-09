@@ -7,39 +7,40 @@ const App: React.FC = () => {
   const [response, setResponse] = useState<string>("");
 
   // Função chamada quando o arquivo de teste é selecionado
-  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = event.target.files?.[0]; // Pega o arquivo selecionado
-
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+    type: "code" | "test"
+  ) => {
+    const selectedFile = event.target.files?.[0];
     if (!selectedFile) {
       console.error("No file selected");
       return;
     }
-
-    setTestFile(selectedFile); // Atualiza o estado com o arquivo selecionado
-
-    // Cria o FormData para enviar o arquivo ao servidor
+  
     const formData = new FormData();
     formData.append("file", selectedFile);
-
+  
     try {
-      // Faz a requisição POST para o servidor
       const uploadResponse = await fetch("http://localhost:3000/upload", {
         method: "POST",
         body: formData,
+        headers: {
+          "X-File-Type": type, // Adiciona o tipo como cabeçalho
+        },
       });
-
+  
       if (uploadResponse.ok) {
         const jsonResponse = await uploadResponse.json();
         console.log("File upload successful:", jsonResponse);
-        setResponse(`File uploaded successfully: ${jsonResponse.filename}`); // Exibe o nome do arquivo
       } else {
         throw new Error("File upload failed");
       }
     } catch (error) {
       console.error("Error during file upload:", error);
-      setResponse("Error during file upload");
     }
   };
+  
+  
 
   const handleGenerateTests = async () => {
     const textarea = document.getElementById('context') as HTMLTextAreaElement;
@@ -88,20 +89,20 @@ const App: React.FC = () => {
               Upload code file<i className="fa-solid fa-paperclip"></i>
             </label>
             <input
-              className="upload_btn"
-              type="file"
-              onChange={handleFileChange} // Chama a função handleFileChange ao selecionar o arquivo
-            />
+                className="upload_btn"
+                type="file"
+                onChange={(e) => handleFileChange(e, 'code')} // Arquivo de código
+                />
           </div>
           <div>
             <label className="upload" htmlFor="tests-file">
               Upload tests file<i className="fa-solid fa-paperclip"></i>
             </label>
             <input
-              className="upload_btn"
-              type="file"
-              onChange={handleFileChange} // Chama a mesma função para enviar o arquivo de teste
-            />
+                className="upload_btn"
+                type="file"
+                onChange={(e) => handleFileChange(e, 'test')} // Arquivo de teste
+                />
           </div>
         </section>
 
