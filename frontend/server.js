@@ -91,17 +91,39 @@ app.post('/save-context', async (req, res) => {
     const scriptPath = path.join(__dirname, '../juncao.py');
     
     console.log(targetPaths)
-    const pythonProcess = spawn('python3', [scriptPath, language, ...targetPaths]);
+    const pythonProcess = spawn(
+      'python3',
+      [scriptPath, language, "code_file.py", "test-file.py","context.txt"],
+      { cwd: path.join(__dirname, '../') } // Substitua por sua diretoria desejada
+    );
 
     pythonProcess.on('close', async (code) => {
       if (code === 0) {
-        // Restaurar os arquivos para seus caminhos de origem
-        await Promise.all(targetPaths.map((tgt, idx) => fsPromises.rename(tgt, sourcePaths[idx])));
-        res.send({ message: 'Processo concluído com sucesso!' });
+        try {
+          // Restaurar os arquivos para seus caminhos de origem
+          await Promise.all(targetPaths.map((tgt, idx) => fsPromises.rename(tgt, sourcePaths[idx])));
+          
+          // Mover mutations.txt de ../ para ./files
+          const mutationsSrc = path.join("../", 'mutations.txt'); // Local de origem: ../
+          const mutationsDest = path.join("./files", 'mutations.txt'); // Local de destino: ./files
+    
+          if (fs.existsSync(mutationsSrc)) {
+            await fsPromises.rename(mutationsSrc, mutationsDest);
+            console.log(`Arquivo mutations.txt movido de ${mutationsSrc} para ${mutationsDest}`);
+          } else {
+            console.warn('mutations.txt não encontrado em ../. Certifique-se de que o script Python o gerou.');
+          }
+    
+          res.send({ message: 'Processo concluído com sucesso!' });
+        } catch (err) {
+          console.error('Erro ao mover os arquivos:', err);
+          res.status(500).send('Erro ao mover os arquivos após a execução.');
+        }
       } else {
         res.status(500).send('Erro no script Python.');
       }
     });
+    
 
     pythonProcess.on('error', (err) => {
       console.error('Erro ao executar o script Python:', err);
