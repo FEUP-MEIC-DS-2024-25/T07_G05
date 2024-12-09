@@ -47,9 +47,6 @@ app.post('/save-context', async (req, res) => {
 
   const filePath = path.join(dir, 'context.txt');
 
-  console.log(filePath)
-  console.log(context)
-
   try {
     // Salvar o contexto em context.txt
     await fsPromises.writeFile(filePath, context);
@@ -75,7 +72,6 @@ app.post('/save-context', async (req, res) => {
       sourcePaths.push(path.join(sourceDir, languageFiles.codeFile));
       targetPaths.push(path.join(targetDir, languageFiles.codeFile));
     }
-    
     if (fs.existsSync(path.join(sourceDir, languageFiles.testFile))) {
       sourcePaths.push(path.join(sourceDir, languageFiles.testFile));
       targetPaths.push(path.join(targetDir, languageFiles.testFile));
@@ -85,16 +81,16 @@ app.post('/save-context', async (req, res) => {
     sourcePaths.push(filePath);
     targetPaths.push(path.join(targetDir, 'context.txt'));
 
-    // Mover os arquivos válidos
+    // Copiar os arquivos para o diretório de destino
     await Promise.all(sourcePaths.map((src, idx) => fsPromises.rename(src, targetPaths[idx])));
+    console.log('Arquivos copiados para:', targetPaths);
 
+    // Executar o script Python
     const scriptPath = path.join(__dirname, '../juncao.py');
-    
-    console.log(targetPaths)
     const pythonProcess = spawn(
       'python3',
-      [scriptPath, language, "code_file.py", "test-file.py","context.txt"],
-      { cwd: path.join(__dirname, '../') } // Substitua por sua diretoria desejada
+      [scriptPath, language, 'code_file.py', 'test-file.py', 'context.txt'],
+      { cwd: path.join(__dirname, '../') } // Diretório de trabalho para o script Python
     );
 
     pythonProcess.on('close', async (code) => {
@@ -104,16 +100,16 @@ app.post('/save-context', async (req, res) => {
           await Promise.all(targetPaths.map((tgt, idx) => fsPromises.rename(tgt, sourcePaths[idx])));
           
           // Mover mutations.txt de ../ para ./files
-          const mutationsSrc = path.join("../", 'mutations.txt'); // Local de origem: ../
-          const mutationsDest = path.join("./files", 'mutations.txt'); // Local de destino: ./files
-    
+          const mutationsSrc = path.join(targetDir, 'mutations.txt'); // Local de origem
+          const mutationsDest = path.join(sourceDir, 'mutations.txt'); // Local de destino
+
           if (fs.existsSync(mutationsSrc)) {
             await fsPromises.rename(mutationsSrc, mutationsDest);
             console.log(`Arquivo mutations.txt movido de ${mutationsSrc} para ${mutationsDest}`);
           } else {
             console.warn('mutations.txt não encontrado em ../. Certifique-se de que o script Python o gerou.');
           }
-    
+
           res.send({ message: 'Processo concluído com sucesso!' });
         } catch (err) {
           console.error('Erro ao mover os arquivos:', err);
@@ -123,7 +119,6 @@ app.post('/save-context', async (req, res) => {
         res.status(500).send('Erro no script Python.');
       }
     });
-    
 
     pythonProcess.on('error', (err) => {
       console.error('Erro ao executar o script Python:', err);
@@ -134,6 +129,7 @@ app.post('/save-context', async (req, res) => {
     res.status(500).send('Erro no processo.');
   }
 });
+
 
 // Rota para servir o arquivo mutations.txt
 app.get("/files/mutations.txt", (req, res) => {
