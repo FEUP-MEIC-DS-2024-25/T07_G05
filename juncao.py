@@ -5,7 +5,7 @@ import sys
 #Ve se tem contexto. Se tiver faz pergunta ao gemini. Se nao, mantem o resultado
 def run_shell_script_gemini(code, test,context):
     # Substitua pelo caminho do seu script shell
-    script_path = "../script_gemini.sh"
+    script_path = "./script_gemini.sh"
     try:
         # Chamar o script com os argumentos passados
         subprocess.run(["bash", script_path, code, test,context], check=True)
@@ -14,7 +14,7 @@ def run_shell_script_gemini(code, test,context):
 
 def run_shell_script_python(code, test,context):
     # Substitua pelo caminho do seu script shell
-    script_path = "../script_python.sh"
+    script_path = "./script_python.sh"
     try:
         # Chamar o script com os argumentos passados
         subprocess.run(["bash", script_path, code, test], check=True)
@@ -27,7 +27,7 @@ def run_shell_script_python(code, test,context):
 
 def run_shell_script_javascript(code, test,context):
     # Substitua pelo caminho do seu script shell
-    script_path = "../script_javascript.sh"
+    script_path = "./script_javascript.sh"
     try:
         # Chamar o script com os argumentos passados
         subprocess.run(["bash", script_path, code, test], check=True)
@@ -40,7 +40,7 @@ def run_shell_script_javascript(code, test,context):
 
 def run_shell_script_java(code,test,context):
     # Substitua pelo caminho do seu script shell
-    script_path = "../script_java.sh"
+    script_path = "./script_java.sh"
     try:
         subprocess.run(["bash", script_path, code], check=True)
     except subprocess.CalledProcessError as e:
