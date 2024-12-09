@@ -47,6 +47,9 @@ app.post('/save-context', async (req, res) => {
 
   const filePath = path.join(dir, 'context.txt');
 
+  console.log(filePath)
+  console.log(context)
+
   try {
     // Salvar o contexto em context.txt
     await fsPromises.writeFile(filePath, context);
