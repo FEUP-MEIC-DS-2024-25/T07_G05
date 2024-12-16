@@ -10,6 +10,9 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+let originalCodeFileName = ''; // Variável global para o nome original do ficheiro "code"
+let originalTestFileName = ''; // Variável global para o nome original do ficheiro "test"
+
 const dir = './files';
 if (!fs.existsSync(dir)) {
   fs.mkdirSync(dir);
@@ -31,10 +34,42 @@ const upload = multer({
         test: 'test-file',
         default: Date.now().toString(),
       };
+
+      // Guardar os nomes originais nas variáveis globais
+      if (type === 'code') {
+        originalCodeFileName = file.originalname; // Nome original do ficheiro de código
+        console.log(originalCodeFileName);
+      } else if (type === 'test') {
+        originalTestFileName = file.originalname; // Nome original do ficheiro de teste
+        console.log(originalTestFileName);
+      }
+
       cb(null, `${filenameMap[type] || filenameMap.default}${path.extname(file.originalname)}`);
     },
   }),
 });
+
+async function updateImports(testFilePath) {
+  try {
+    // Ler o conteúdo do ficheiro
+    let content = await fsPromises.readFile(testFilePath, 'utf-8');
+
+    // Garantir que 'originalCodeFileName' é substituído com o nome sem a extensão
+    const baseName = originalCodeFileName.split('.')[0]; // Extrair nome sem extensão
+
+    // Substituir todas as ocorrências de 'originalCodeFileName' pelo nome sem extensão (baseName)
+    content = content.replace(baseName, 'code_file');
+
+    // Salvar as alterações no ficheiro
+    await fsPromises.writeFile(testFilePath, content);
+    console.log(`Substituições realizadas no arquivo: ${testFilePath}`);
+  } catch (err) {
+    console.error('Erro ao atualizar o arquivo:', err);
+    throw err;
+  }
+}
+
+
 
 app.post('/upload', upload.single('file'), (req, res) => {
   if (!req.file) return res.status(400).send('No file uploaded.');
@@ -85,20 +120,25 @@ app.post('/save-context', async (req, res) => {
     await Promise.all(sourcePaths.map((src, idx) => fsPromises.rename(src, targetPaths[idx])));
     console.log('Arquivos copiados para:', targetPaths);
 
-    //Ver quais os ficheiros
-    const files_names = []
-    if (language === "python"){
-      files_names.push('code_file.py')
-      files_names.push('test-file.py')
-      files_names.push('context.txt')
-    }else if (language === "java"){
-      files_names.push('code_file.java')
-      files_names.push('test-file.java')
-      files_names.push('context.txt')
-    }else{ //java script
-      files_names.push('code_file.js')
-      files_names.push('test-file.js')
-      files_names.push('context.txt')
+    // Ver quais os ficheiros
+    const files_names = [];
+    if (language === 'python') {
+      files_names.push('code_file.py');
+      files_names.push('test-file.py');
+      files_names.push('context.txt');
+
+      // Renomear os imports para funcionar
+      const testFilePath = path.join(targetDir, languageFiles.testFile);
+      await updateImports(testFilePath);
+    } else if (language === 'java') {
+      files_names.push('code_file.java');
+      files_names.push('test-file.java');
+      files_names.push('context.txt');
+    } else {
+      // JavaScript
+      files_names.push('code_file.js');
+      files_names.push('test-file.js');
+      files_names.push('context.txt');
     }
 
     // Executar o script Python
@@ -114,7 +154,7 @@ app.post('/save-context', async (req, res) => {
         try {
           // Restaurar os arquivos para seus caminhos de origem
           await Promise.all(targetPaths.map((tgt, idx) => fsPromises.rename(tgt, sourcePaths[idx])));
-          
+
           // Mover mutations.txt de ../ para ./files
           const mutationsSrc = path.join(targetDir, 'mutations.txt'); // Local de origem
           const mutationsDest = path.join(sourceDir, 'mutations.txt'); // Local de destino
@@ -146,18 +186,16 @@ app.post('/save-context', async (req, res) => {
   }
 });
 
-
 // Rota para servir o arquivo mutations.txt
-app.get("/files/mutations.txt", (req, res) => {
-  const mutationsFile = path.join("files", "mutations.txt");
+app.get('/files/mutations.txt', (req, res) => {
+  const mutationsFile = path.join('files', 'mutations.txt');
 
   if (fs.existsSync(mutationsFile)) {
     res.download(mutationsFile); // Permite o download do arquivo
   } else {
-    res.status(404).json({ message: "Mutations file not found" });
+    res.status(404).json({ message: 'Mutations file not found' });
   }
 });
-
 
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`);
