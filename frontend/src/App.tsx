@@ -68,11 +68,6 @@ const App: React.FC = () => {
     const languageElem = document.getElementById("language") as HTMLSelectElement;
     const language = languageElem.value;
   
-    if (!context.trim()) {
-      setResponse("Por favor, insira algum contexto."); // Mostra um aviso se o textarea estiver vazio
-      return;
-    }
-  
     try {
       // Envia o conteúdo como JSON
       const saveResponse = await fetch("http://localhost:3000/save-context", {

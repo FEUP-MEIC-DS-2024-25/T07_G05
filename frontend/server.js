@@ -78,7 +78,6 @@ app.post('/upload', upload.single('file'), (req, res) => {
 
 app.post('/save-context', async (req, res) => {
   const { context, language } = req.body;
-  if (!context) return res.status(400).send('O campo context está vazio.');
 
   const filePath = path.join(dir, 'context.txt');
 
@@ -141,7 +140,24 @@ app.post('/save-context', async (req, res) => {
       files_names.push('context.txt');
     }
 
-    // Verifica se o ficheiro existe context existe e se sim, verifica se 
+    const contextFilePath = path.join(targetDir, 'context.txt');
+
+    if (fs.existsSync(contextFilePath)) {
+      const content = fs.readFileSync(contextFilePath, 'utf-8').trim();
+      if (content.length === 0) {
+        console.warn('O ficheiro context.txt está vazio e será removido da lista.');
+        // Remover 'context.txt' do array files_names
+        const index = files_names.indexOf('context.txt');
+        if (index > -1) {
+          files_names.splice(index, 1);
+        }
+      } else {
+        console.log('O ficheiro context.txt possui conteúdo.');
+      }
+    } else {
+      console.warn('O ficheiro context.txt não foi encontrado.');
+    }
+
     
 
     // Executar o script Python
