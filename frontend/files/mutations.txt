@@ -1,0 +1,77 @@
+The provided context is nonsensical ("dsnfksndkadkjcjkadbvjksdb"), so I cannot use it to determine the importance of the tests.  Therefore, I will select four tests that demonstrate a variety of inputs and logical paths within the `contas` function.  A robust testing strategy would include many more tests, covering edge cases and boundary conditions.
+
+```java
+package com.example;
+public class Main {
+    public int contas(int a, int b) {
+        int c = a - b;
+        int d = c + 1;
+        if (d <= 10) {
+            return d % 10;
+        } else {
+            return d;
+        }
+    }
+
+    public static void main(String[] args) {
+        Main main = new Main();
+        System.out.println("Resultado: " + main.contas(2, 3)); //Test 1: Subtraction, result <= 10
+    }
+}
+
+package com.example;
+public class Main {
+    public int contas(int a, int b) {
+        int c = a + b;
+        int d = c - 1;
+        if (d <= 10) {
+            return d % 10;
+        } else {
+            return d;
+        }
+    }
+
+    public static void main(String[] args) {
+        Main main = new Main();
+        System.out.println("Resultado: " + main.contas(2, 3)); //Test 2: Addition, result <= 10
+    }
+}
+
+package com.example;
+public class Main {
+    public int contas(int a, int b) {
+        int c = a - b;
+        int d = c - 1;
+        if (d > 10) {
+            return d % 10;
+        } else {
+            return d;
+        }
+    }
+
+    public static void main(String[] args) {
+        Main main = new Main();
+        System.out.println("Resultado: " + main.contas(15, 2)); //Test 3: Subtraction, result > 10
+    }
+}
+
+package com.example;
+public class Main {
+    public int contas(int a, int b) {
+        int c = a + b;
+        int d = c + 1;
+        if (d > 10) {
+            return d % 10;
+        } else {
+            return d;
+        }
+    }
+
+    public static void main(String[] args) {
+        Main main = new Main();
+        System.out.println("Resultado: " + main.contas(8, 5)); //Test 4: Addition, result >10
+    }
+}
+```
+
+These four tests cover the different combinations of addition/subtraction and results that are either less than or equal to 10, or greater than 10.  Remember that this is a minimal set, and a real-world application would need more comprehensive testing.

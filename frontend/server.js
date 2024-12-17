@@ -141,6 +141,9 @@ app.post('/save-context', async (req, res) => {
       files_names.push('context.txt');
     }
 
+    // Verifica se o ficheiro existe context existe e se sim, verifica se 
+    
+
     // Executar o script Python
     const scriptPath = path.join(__dirname, '../juncao.py');
     const pythonProcess = spawn(
