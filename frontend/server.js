@@ -49,7 +49,7 @@ const upload = multer({
   }),
 });
 
-async function updateImports(testFilePath) {
+async function updateImports(testFilePath,language) {
   try {
     // Ler o conteúdo do ficheiro
     let content = await fsPromises.readFile(testFilePath, 'utf-8');
@@ -57,8 +57,17 @@ async function updateImports(testFilePath) {
     // Garantir que 'originalCodeFileName' é substituído com o nome sem a extensão
     const baseName = originalCodeFileName.split('.')[0]; // Extrair nome sem extensão
 
-    // Substituir todas as ocorrências de 'originalCodeFileName' pelo nome sem extensão (baseName)
-    content = content.replace(baseName, 'code_file');
+    if (language ==="python"){
+        // Substituir todas as ocorrências de 'originalCodeFileName' pelo nome sem extensão (baseName)
+        content = content.replace(baseName, 'code_file');
+    }else{
+        //Caso de javascript
+        // Substituir todas as ocorrências de 'originalCodeFileName' pelo nome sem extensão (baseName)
+        content = content.replace(/require\(\s*['"]\.\/([^'"]+)['"]\s*\)/g, (match, p1) => {
+          // Substitua p1 com o nome desejado
+          return `require('./${p1.replace(baseName, 'code_file')}')`;
+        });
+    }
 
     // Salvar as alterações no ficheiro
     await fsPromises.writeFile(testFilePath, content);
@@ -128,7 +137,7 @@ app.post('/save-context', async (req, res) => {
 
       // Renomear os imports para funcionar
       const testFilePath = path.join(targetDir, languageFiles.testFile);
-      await updateImports(testFilePath);
+      await updateImports(testFilePath,"python");
     } else if (language === 'java') {
       files_names.push('code_file.java');
       files_names.push('test-file.java');
@@ -138,6 +147,8 @@ app.post('/save-context', async (req, res) => {
       files_names.push('code_file.js');
       files_names.push('test-file.js');
       files_names.push('context.txt');
+      const testFilePath = path.join(targetDir, languageFiles.testFile);
+      await updateImports(testFilePath,"javascript");
     }
 
     const contextFilePath = path.join(targetDir, 'context.txt');
