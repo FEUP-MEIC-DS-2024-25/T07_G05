@@ -19,7 +19,7 @@ if (!fs.existsSync(dir)) {
 }
 
 const app = express();
-const port = 3000;
+const port = 8080;
 
 app.use(bodyParser.json());
 app.use(cors());
