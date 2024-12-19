@@ -19,7 +19,7 @@ if (!fs.existsSync(dir)) {
 }
 
 const app = express();
-const port = 8080;
+const port = 3000;
 
 app.use(bodyParser.json());
 app.use(cors());
@@ -168,8 +168,6 @@ app.post('/save-context', async (req, res) => {
     } else {
       console.warn('O ficheiro context.txt não foi encontrado.');
     }
-
-    
 
     // Executar o script Python
     const scriptPath = path.join(__dirname, '../juncao.py');
