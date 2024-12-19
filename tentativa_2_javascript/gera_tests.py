@@ -1,5 +1,6 @@
 import sys
 import re
+from itertools import product
 
 def gerar_mutacoes_js(linha):
     """
@@ -25,12 +26,6 @@ def gerar_mutacoes_js(linha):
     if "false" in linha:
         mutacoes.append(linha.replace("false", "true"))
 
-    # Exemplo 4: Modificar números constantes
-    numeros = re.findall(r'\b\d+\b', linha)
-    for numero in numeros:
-        mutacoes.append(linha.replace(numero, str(int(numero) + 1)))  # Incrementa
-        mutacoes.append(linha.replace(numero, str(int(numero) - 1)))  # Decrementa
-
     return mutacoes
 
 def main():
@@ -43,17 +38,25 @@ def main():
     try:
         with open(nome_ficheiro, 'r') as ficheiro:
             linhas = ficheiro.readlines()
-            resultado = []
+            dic_opcoes_linhas_das_mutacoes = {}
 
             for num, linha in enumerate(linhas, start=1):
                 linha = linha.strip()  # Remove espaços extras
                 mutacoes = gerar_mutacoes_js(linha)  # Gera mutações
-                # Adiciona a linha original e suas mutações
-                entrada = [linha] + mutacoes
-                resultado.append(entrada)
+                # A linha original + suas mutações possíveis
+                dic_opcoes_linhas_das_mutacoes[num] = [linha] + mutacoes
 
-            print(resultado)
-            return resultado  # Retorna a lista com as linhas e mutações
+            # Fazer todas as combinações possíveis
+            combinacoes = list(product(*dic_opcoes_linhas_das_mutacoes.values()))
+
+            # Exibir e salvar as combinações
+            with open("mutations.txt", 'w') as arquivo_saida:
+                for i, combinacao in enumerate(combinacoes, start=1):
+                    for linha in combinacao:
+                        arquivo_saida.write(linha + '\n')
+                    arquivo_saida.write("\n")
+
+            print(f"Mutations geradas e salvas no ficheiro 'mutations.txt'. Total: {len(combinacoes)} combinações.")
 
     except FileNotFoundError:
         print(f"Erro: O ficheiro '{nome_ficheiro}' não foi encontrado.")
