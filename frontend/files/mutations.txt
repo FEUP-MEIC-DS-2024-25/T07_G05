@@ -1,1 +1,81 @@
-There are only two code snippets provided, and neither is a test.  They are both implementations of a `sum` function, but neither is accompanied by any test cases.  To select tests bigger than 5, I need test cases to evaluate.  Provide test cases (e.g., using a testing framework like Jest, Mocha, etc.) and I can then select the ones that meet your criteria.
+The provided code snippets are all variations of a single function with slightly different logic.  To create meaningful tests that cover a range of scenarios and highlight the impact of the conditional logic, we need to create tests with different input values that lead to results both above and below the 10 threshold in the `if` condition.  We also need to account for the different operations (+ or -)
+
+
+Here are four tests focusing on different code paths, which should be sufficient to understand the program's behavior:
+
+
+```java
+package com.example;
+public class Main {
+    public int contas(int a, int b) {
+        int c = a + b;
+        int d = c + 1;
+        if (d > 10) {
+            return d % 10;
+        } else {
+            return d;
+        }
+    }
+
+    public static void main(String[] args) {
+        Main main = new Main();
+        System.out.println("Resultado: " + main.contas(5, 6)); //Test 1: d > 10
+    }
+}
+
+package com.example;
+public class Main {
+    public int contas(int a, int b) {
+        int c = a + b;
+        int d = c - 1;
+        if (d > 10) {
+            return d % 10;
+        } else {
+            return d;
+        }
+    }
+
+    public static void main(String[] args) {
+        Main main = new Main();
+        System.out.println("Resultado: " + main.contas(7, 5)); //Test 2: d > 10, different operation
+    }
+}
+
+package com.example;
+public class Main {
+    public int contas(int a, int b) {
+        int c = a - b;
+        int d = c + 1;
+        if (d <= 10) {
+            return d % 10;
+        } else {
+            return d;
+        }
+    }
+
+    public static void main(String[] args) {
+        Main main = new Main();
+        System.out.println("Resultado: " + main.contas(2, 3)); //Test 3: d <=10
+    }
+}
+
+package com.example;
+public class Main {
+    public int contas(int a, int b) {
+        int c = a + b;
+        int d = c -1;
+        if (d <= 10) {
+            return d % 10;
+        } else {
+            return d;
+        }
+    }
+
+    public static void main(String[] args) {
+        Main main = new Main();
+        System.out.println("Resultado: " + main.contas(5, 5)); //Test 4: d <= 10, different operation
+    }
+}
+```
+
+These four tests cover addition and subtraction, and results both above and below the threshold of 10, offering a better representation of the function's behavior.  To make these truly robust unit tests, you would typically use a unit testing framework like JUnit.
